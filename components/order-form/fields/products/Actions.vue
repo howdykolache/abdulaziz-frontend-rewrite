@@ -37,6 +37,20 @@
 </template>
 
 <script>
+const PRODUCT_IDS = {
+  coloradough: 'recOY2bEa5r9Uc5eS',
+  elGreco: 'recXXlj4tAZCp416B',
+  hammySammy: 'rec5BhFPhXUEsISmi',
+  theSchmear:'rec4f7tMSqSFtUsgH',
+  potHocket:'rec8NreCbCUwVnQgb',
+  theHomesickTexan:'recDa06nJ5hIgfdDI',
+  ronSwanson:'recZJBEonwaJ2UM3A',
+  desayuno:'recJJKZq6OOBgdge1',
+  kream:'recvpRS22hhPag0IF',
+  wapPer:'recN8XcZMdE0aQjsc',
+  weMissDoug:'rec8jnxepOczjpAsO'
+}
+
 export default {
   data () {
     return {
@@ -50,43 +64,43 @@ export default {
     },
     addOneBreakfast () {
       this.$emit(this.orderEventName, {
-        recOY2bEa5r9Uc5eS: 1,
-        recZJBEonwaJ2UM3A: 1,
-        recXXlj4tAZCp416B: 1,
-        rec4f7tMSqSFtUsgH: 1
+        [PRODUCT_IDS.coloradough]: 1,
+        [PRODUCT_IDS.ronSwanson]: 1,
+        [PRODUCT_IDS.elGreco]: 1,
+        [PRODUCT_IDS.theSchmear]: 1
       })
     },
     addOneAllDaySample () {
       this.$emit(this.orderEventName, {
-        recN8XcZMdE0aQjsc: 1,
-        rec8NreCbCUwVnQgb: 1,
-        rec8jnxepOczjpAsO: 1,
-        rec5BhFPhXUEsISmi: 1
+        [PRODUCT_IDS.wapPer]: 1,
+        [PRODUCT_IDS.potHocket]: 1,
+        [PRODUCT_IDS.weMissDoug]: 1,
+        [PRODUCT_IDS.hammySammy]: 1
       })
     },
     addOneBreakfastDozen () {
       this.$emit(this.orderEventName, {
-        recOY2bEa5r9Uc5eS: 3,
-        recXXlj4tAZCp416B: 3,
-        rec4f7tMSqSFtUsgH: 2,
-        recvpRS22hhPag0IF: 2,
-        recZJBEonwaJ2UM3A: 1,
-        recJJKZq6OOBgdge1: 1
+        [PRODUCT_IDS.coloradough]: 3,
+        [PRODUCT_IDS.elGreco]: 3,
+        [PRODUCT_IDS.theSchmear]: 2,
+        [PRODUCT_IDS.kream]: 2,
+        [PRODUCT_IDS.ronSwanson]: 1,
+        [PRODUCT_IDS.desayuno]: 1
       })
     },
     addOneDozenBreakfastVeg  () {
       this.$emit(this.orderEventName, {
-        recXXlj4tAZCp416B: 6,
-        rec4f7tMSqSFtUsgH: 3,
-        recvpRS22hhPag0IF: 3
+        [PRODUCT_IDS.elGreco]: 6,
+        [PRODUCT_IDS.theSchmear]: 3,
+        [PRODUCT_IDS.kream]: 3
       })
     },
     addOneDozenAllDay  () {
       this.$emit(this.orderEventName, {
-        recN8XcZMdE0aQjsc: 3,
-        rec8jnxepOczjpAsO: 3,
-        rec5BhFPhXUEsISmi: 3,
-        recvpRS22hhPag0IF: 3
+        [PRODUCT_IDS.wapPer]: 3,
+        [PRODUCT_IDS.weMissDoug]: 3,
+        [PRODUCT_IDS.hammySammy]: 3,
+        [PRODUCT_IDS.kream]: 3
       })
     }
   }
