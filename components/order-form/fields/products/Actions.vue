@@ -16,13 +16,13 @@
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
           <span>1 all day sample box</span>
         </button>
-        <button @click="addOneBreakfastDozen" class="btn btn__secondary">
+        <button @click="addHowdyMix" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 breakfast dozen</span>
+          <span>1 howdy Mix (12)</span>
         </button>
-        <button @click="addOneDozenBreakfastVeg" class="btn btn__secondary">
+        <button @click="addVegMix" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 breakfast dozen (veg)</span>
+          <span>1 veg Mix (12)</span>
         </button>
         <button @click="addOneDozenAllDay" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
@@ -78,7 +78,7 @@ export default {
         [PRODUCT_IDS.hammySammy]: 1
       })
     },
-    addOneBreakfastDozen () {
+    addHowdyMix () {
       this.$emit(this.orderEventName, {
         [PRODUCT_IDS.coloradough]: 3,
         [PRODUCT_IDS.elGreco]: 3,
@@ -88,7 +88,7 @@ export default {
         [PRODUCT_IDS.desayuno]: 1
       })
     },
-    addOneDozenBreakfastVeg  () {
+    addVegMix  () {
       this.$emit(this.orderEventName, {
         [PRODUCT_IDS.elGreco]: 6,
         [PRODUCT_IDS.theSchmear]: 3,
