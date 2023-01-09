@@ -24,6 +24,10 @@
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
           <span>1 veg Mix (12)</span>
         </button>
+        <button @click="addSweetAndSavory" class="btn btn__secondary">
+          <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
+          <span>1 sweet and savory</span>
+        </button>
         <button @click="addOneDozenAllDay" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
           <span>1 all day dozen</span>
@@ -48,7 +52,8 @@ const PRODUCT_IDS = {
   desayuno:'recJJKZq6OOBgdge1',
   kream:'recvpRS22hhPag0IF',
   wapPer:'recN8XcZMdE0aQjsc',
-  weMissDoug:'rec8jnxepOczjpAsO'
+  weMissDoug:'rec8jnxepOczjpAsO',
+  assortedSweet:'recIYpAFu1BxQADci',
 }
 
 export default {
@@ -101,6 +106,14 @@ export default {
         [PRODUCT_IDS.weMissDoug]: 3,
         [PRODUCT_IDS.hammySammy]: 3,
         [PRODUCT_IDS.kream]: 3
+      })
+    },
+    addSweetAndSavory  () {
+      this.$emit(this.orderEventName, {
+        [PRODUCT_IDS.coloradough]: 2,
+        [PRODUCT_IDS.elGreco]: 2,
+        [PRODUCT_IDS.theSchmear]: 2,
+        [PRODUCT_IDS.assortedSweet]: 6,
       })
     }
   }
