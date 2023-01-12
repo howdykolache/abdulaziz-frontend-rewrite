@@ -152,7 +152,8 @@ export default {
       getClients: 'entities/clients/get',
       getProducts: 'entities/products/get',
       getOrders: 'entities/orders/get',
-      getOrderItems: 'entities/order-items/get'
+      getOrderItems: 'entities/order-items/get',
+      clearOrderItems: 'entities/order-items/clear'
     }),
     onDateSelected (date) {
       this.load(date)
@@ -174,6 +175,10 @@ export default {
             fields: AIRTABLE_ENTITITY_FIELDS.PRODUCTS
           })
         }
+
+        // Reset order items whenever we are loading fresh data for a given day.
+        // We don’t need to also reset orders, because getOrders will overwrite them anyway 
+        this.clearOrderItems()
 
         await this.getOrders({
           filterByFormula: airQuery()

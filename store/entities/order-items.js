@@ -64,6 +64,9 @@ export const actions = {
     } catch (error) {
       throw new Error(`Could not delete given order items: ${error}`)
     }
+  },
+  clear({ commit }){
+    commit('SET', [])
   }
 }
 
