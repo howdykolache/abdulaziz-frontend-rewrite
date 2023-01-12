@@ -57,14 +57,17 @@ export default {
   },
   methods: {
     generatePdf () {
-      generateOrderPdf(this.orders)
+      const data = this.pdfData.filter(o => o.client.type === this.type)
+
+      generateOrderPdf(data)
     }
   },
   computed: {
     ...mapGetters({
       products: 'entities/products/products',
       orderItems: 'entities/order-items/orderItems',
-      clients: 'entities/clients/clients'
+      clients: 'entities/clients/clients',
+      pdfData: 'delivery-summary/pdfData',
     }),
     // Used to populate table head
     productNames () {
