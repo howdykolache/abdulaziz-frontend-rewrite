@@ -66,6 +66,7 @@ export default {
   computed: {
     ...mapGetters({
       ordersPerClient: 'delivery-summary/ordersPerClient',
+      pdfData: 'delivery-summary/pdfData',
       clients: 'entities/clients/clients',
       orders: 'entities/orders/orders',
       products: 'entities/products/products'
@@ -201,12 +202,7 @@ export default {
       this.loading = false
     },
     printOrders () {
-      let orders = []
-      this.groupedClientTypeOrders.forEach((clientOrder) => {
-        orders = [...orders, ...clientOrder.data]
-      })
-      console.log(orders)
-      generateOrderPdf(orders)
+      generateOrderPdf(this.pdfData)
     }
   }
 }

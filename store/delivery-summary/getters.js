@@ -58,5 +58,67 @@ export default {
     }
 
     return ordersPerClient
+  },
+  // Data that will be fed into the PDF generation function
+  pdfData(state, getters, rootState, rootGetters){
+    const orders = rootGetters['entities/orders/orders']
+    const orderItems = rootGetters['entities/order-items/orderItems']
+    const products = rootGetters['entities/products/products']
+    const clients = rootGetters['entities/clients/clients']
+
+    const data = []
+
+    for (let index = 0; index < orderItems.length; index++) {
+      const orderItem = orderItems[index]
+
+      const order = orders.find(order => order.id === orderItem.fields.Order[0])
+      const product = products.find(prod => prod.id === orderItem.fields.Product[0])
+      const client = clients.find(cl => cl.id === orderItem.fields['Client Rec ID'][0])
+
+      // Try to see if we have an entry for this order
+      const entry = data.find(orderData => orderData.id === order.id)
+      // If no entry found, initialize an entry for this order. 
+      if (!entry){
+        // This is the first time we run into this order since we started going through the order items
+        entry = {
+          id: order.id,
+          products: [],
+          client: {
+            name: client.fields.Name,
+            address: order.fields['Delivery Address'] || client.fields.Address,
+            type: client.fields['Client Type']
+          },
+          date: order.fields.Date,
+          deliveryMethod: order.fields['Delivery Type'],
+          contactName: order.fields['Order Contact'] || client.fields['Primary Contact'],
+          phoneNumber: order.fields['Order Phone'] || client.fields.Phone,
+          deliveryDriver: order.fields['Delivery Driver'],
+          readyTime: order.fields['Ready Time'],
+          deliveryTime: order.fields['Delivery Time'],
+        }
+
+        data.push(entry)
+      }
+
+      const productIndex = entry.products.findIndex(p => p.id === product.id)
+
+      if (productIndex != -1) {
+        // we have already added this product, just update its qty 
+        entry.products[productIndex].qty += orderItem.fields.Orders
+      } else {
+        // This is the 1st time we add this product
+        entry.products.push({
+          id: product.id,
+          name: product.fields.Name,
+          qty: orderItem.fields.Orders,
+        })
+      }
+
+      // Update the entry
+      const entryIndex = data.findIndex(orderData => orderData.id === order.id)
+      data.splice(entryIndex, 1, entry)
+    }
+
+    return data
   }
 }
