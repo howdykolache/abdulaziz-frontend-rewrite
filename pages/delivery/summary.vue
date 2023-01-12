@@ -20,7 +20,7 @@
         :orders='clientTypeOrders.data' />
         <p v-if="!groupedClientTypeOrders.length" class="text-center">No orders</p>
       </div>
-      <div class="print-all-orders">
+      <div v-if="groupedClientTypeOrders.length" class="print-all-orders">
         <button @click="printOrders" class="btn">
           <img class="w-4 h-4" src="~/assets/icons/print.svg" >
           <span class="ml-3">Print all orders</span>
