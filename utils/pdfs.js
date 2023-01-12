@@ -81,7 +81,7 @@ export const generateOrderPdf = (orders) => {
         }
       },
       qty: {
-        content: order.totalOrders,
+        content: order.products.reduce((qty, item) => qty + item.qty, 0),
         styles: {
           fontStyle: 'bold'
         }
