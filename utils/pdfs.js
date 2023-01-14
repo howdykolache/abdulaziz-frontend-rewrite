@@ -51,7 +51,8 @@ export const generateOrderPdf = (orders) => {
 
         if (order.notes) {
           addText('Special Notes:', 'bold', rightColStartY, rightColStartX)
-          let notes = order.notes
+          // Removing emojis, because they are messing up the text
+          let notes = order.notes.replace(/\p{Emoji}/ug, '')
           // Split the text to prevent overflowing
           notes = doc.splitTextToSize(notes, 178)
           addText(notes, 'normal', rightColStartY + 4, rightColStartX)
