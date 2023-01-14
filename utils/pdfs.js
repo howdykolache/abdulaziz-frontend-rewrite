@@ -24,10 +24,15 @@ export const generateOrderPdf = (orders) => {
 
     addHeading(`${order.client.name} - ${formattedOrderDate} - ${clientType}`)
     addLine()
-
+    
     addText('Delivery:', 'bold')
-    // Remember current y position, because we will put the address and the delivery person on the same line
-    const deliveryLineY = currentLineY
+
+    // Since we are splitting the content into two columns, we want 2nd col to start on the same Y axis as the
+    // delivery line on the 1st col
+    const rightColStartY = currentLineY
+    // Horizontal beginning of the 2nd column
+    const rightColStartX = width / 2.5  
+
     if (order.deliveryMethod) {
       if (order.deliveryMethod.toLowerCase() === 'pickup') {
         addText('Pickup')
@@ -35,12 +40,21 @@ export const generateOrderPdf = (orders) => {
         addText(order.client.address)
         currentLineY += 16
 
+        // Placing delivery person & special notes on the 2nd col
+
         if (order.deliveryDriver) {
-          addText('Delivery By:', 'bold', deliveryLineY, width / 2)
-          addText(order.deliveryDriver, 'normal',
-            deliveryLineY + 4, // add some space
-            width / 2 // Put it on the right half of the page
-          )
+          addText('Delivery By:', 'bold', rightColStartY, rightColStartX)
+          addText(order.deliveryDriver, 'normal', rightColStartY + 4, rightColStartX)
+        }        
+        
+        rightColStartY += 8 // adding some space
+
+        if (order.notes) {
+          addText('Special Notes:', 'bold', rightColStartY, rightColStartX)
+          let notes = order.notes
+          // Split the text to prevent overflowing
+          notes = doc.splitTextToSize(notes, 178)
+          addText(notes, 'normal', rightColStartY + 4, rightColStartX)
         }
       }
     } else {

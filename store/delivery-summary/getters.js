@@ -95,6 +95,7 @@ export default {
           deliveryDriver: order.fields['Delivery Driver'],
           readyTime: order.fields['Ready Time'],
           deliveryTime: order.fields['Delivery Time'],
+          notes: order.fields.Notes,
         }
 
         data.push(entry)
