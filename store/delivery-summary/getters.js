@@ -112,6 +112,7 @@ export default {
           id: product.id,
           name: product.fields.Name,
           qty: orderItem.fields.Orders,
+          displayOrder: product.fields['Display Order'],
         })
       }
 
@@ -119,6 +120,9 @@ export default {
       const entryIndex = data.findIndex(orderData => orderData.id === order.id)
       data.splice(entryIndex, 1, entry)
     }
+
+    // Order products by their “Display Order”
+    data.forEach(order => order.products.sort((a, b) => a.displayOrder - b.displayOrder));
 
     return data
   }
