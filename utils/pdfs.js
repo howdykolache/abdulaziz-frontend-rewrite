@@ -170,6 +170,9 @@ const displayOrderMetadata = (order) => {
       
       if (typeof text === 'function') text = text()
       
+      // Removing emojis because they are messing up the text
+      text = text.replace(/\p{Emoji}/ug, '')
+
       text = doc.splitTextToSize(text, stringWidth)
       
       addText(label, 'bold', currentX, currentLineY + 5)
