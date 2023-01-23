@@ -143,13 +143,13 @@ const displayOrderMetadata = (order) => {
         {
           widthInPercentage: 0.5,
           label: 'Special Notes:',
-          value: order.notes,
+          value: () => (order.notes || 'n/a').replace(/\n/g, " "),
           stringWidth: 120
         },
         {
           widthInPercentage: 0.5,
           label: 'Delivery Notes:',
-          value: order.deliveryNotes,
+          value: () => (order.deliveryNotes || 'n/a').replace(/\n/g, " "),
           stringWidth: 120
         }
       ]
