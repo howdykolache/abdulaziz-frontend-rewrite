@@ -20,63 +20,10 @@ export const generateOrderPdf = (orders) => {
     const clientType = order.client.type.replace(/^[0-9]\./, '').trim()
 
     currentLineY = 10
-    currentLineBottomMargin = 0
 
     addHeading(`${order.client.name} - ${formattedOrderDate} - ${clientType}`)
     addLine()
-    
-    addText('Delivery:', 'bold')
-
-    // Since we are splitting the content into two columns, we want 2nd col to start on the same Y axis as the
-    // delivery line on the 1st col
-    const rightColStartY = currentLineY
-    // Horizontal beginning of the 2nd column
-    const rightColStartX = width / 2.5  
-
-    if (order.deliveryMethod) {
-      if (order.deliveryMethod.toLowerCase() === 'pickup') {
-        addText('Pickup')
-      } else {
-        addText(order.client.address)
-        currentLineY += 16
-
-        // Placing delivery person & special notes on the 2nd col
-
-        if (order.deliveryDriver) {
-          addText('Delivery By:', 'bold', rightColStartY, rightColStartX)
-          addText(order.deliveryDriver, 'normal', rightColStartY + 4, rightColStartX)
-        }        
-        
-        rightColStartY += 8 // adding some space
-
-        if (order.notes) {
-          addText('Special Notes:', 'bold', rightColStartY, rightColStartX)
-          // Removing emojis, because they are messing up the text
-          let notes = order.notes.replace(/\p{Emoji}/ug, '')
-          // Split the text to prevent overflowing
-          notes = doc.splitTextToSize(notes, 178)
-          addText(notes, 'normal', rightColStartY + 4, rightColStartX)
-        }
-      }
-    } else {
-      addText(order.client.address)
-      currentLineY += 16
-    }
-
-    if (order.contactName) {
-      addText('Contact Person:', 'bold')
-      addText(`${order.contactName} ${order.phoneNumber || ''}`)
-    }
-
-    if (order.readyTime) {
-      addText('Ready By', 'bold')
-      addText(order.readyTime)
-    }
-
-    if (order.deliveryTime) {
-      addText('Delivery By', 'bold')
-      addText(order.deliveryTime)
-    }
+    displayOrderMetadata(order)
 
     for (const key in order.products) {
       const product = order.products[key]
@@ -141,16 +88,91 @@ const generateTable = (body) => {
   })
 }
 
-const addText = (text, fontStyle = 'normal', y, x = 20) => {
-  if (!y) {
-    y = currentLineY + 3 + currentLineBottomMargin
-    currentLineBottomMargin = 1
-    currentLineY = y
-  }
+const displayOrderMetadata = (order) => {
+  const rows = [
+    {
+      columns: [
+        {
+          widthInPercentage: 0.3,
+          stringWidth: 105,
+          label: 'Delivery:',
+          value: () => {
+            if (!order.deliveryMethod || order.deliveryMethod.toLowerCase() != 'pickup') {
+              return order.client.address.replace(/\n/g, " ");
+            } else {
+              return 'Pickup'
+            }
+          }
+        },
+        {
+          widthInPercentage: 0.2,
+          label: 'Delivery Person:',
+          value: order.deliveryDriver,
+          stringWidth: 70,
+        },
+        {
+          widthInPercentage: 0.3,
+          label: 'Contact Person:',
+          value: `${order.contactName}\n${order.phoneNumber}`,
+          stringWidth: 100,
+        },
+        {
+          widthInPercentage: 0.1,
+          label: 'Ready By:',
+          value: order.readyTime,
+          stringWidth: 20,
+        },
+        {
+          widthInPercentage: 0.1,
+          label: 'Delivery By:',
+          value: order.deliveryTime,
+          stringWidth: 20
+        },
+      ]
+    },
+    {
+      columns: [
+        {
+          widthInPercentage: 0.5,
+          label: 'Special Notes:',
+          value: order.notes,
+          stringWidth: 120
+        }
+      ]
+    }
+  ]
 
+  currentLineY += 1
+
+  for (let index = 0; index < rows.length; index++) {
+    const row = rows[index]
+    const xPadding = 20
+    let currentX = xPadding
+    
+    row.columns.forEach(({ label, value, widthInPercentage, stringWidth }) => {
+      let text = value
+      
+      if(!text) text = 'n/a'
+      
+      if (typeof text === 'function') text = text()
+      
+      text = doc.splitTextToSize(text, stringWidth)
+      
+      addText(label, 'bold', currentX, currentLineY + 5)
+      addText(text, 'normal', currentX, currentLineY + 9)
+
+      // Set currentX to the end of this col (which is also the start of the next col)
+      const colWidth = widthInPercentage * (width - xPadding * 2)
+      currentX += colWidth
+    });
+    
+    currentLineY += 15
+  }
+}
+
+const addText = (text, fontStyle = 'normal', x = 20, y = 20) => {
   doc.setFontSize(9)
   doc.setFont('helvetica', fontStyle)
-
   doc.text(text, x, y)
 }
 
