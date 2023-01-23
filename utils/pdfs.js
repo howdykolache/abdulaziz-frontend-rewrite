@@ -60,7 +60,7 @@ export const generateOrderPdf = (orders) => {
 }
 
 const generateTable = (body) => {
-  currentLineY += 3
+  currentLineY += 5
   console.log('b', body)
 
   autoTable(doc, {
