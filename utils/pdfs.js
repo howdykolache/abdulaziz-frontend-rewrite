@@ -137,6 +137,12 @@ const displayOrderMetadata = (order) => {
           label: 'Special Notes:',
           value: order.notes,
           stringWidth: 120
+        },
+        {
+          widthInPercentage: 0.5,
+          label: 'Delivery Notes:',
+          value: order.deliveryNotes,
+          stringWidth: 120
         }
       ]
     }
