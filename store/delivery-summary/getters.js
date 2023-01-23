@@ -85,6 +85,7 @@ export default {
           products: [],
           client: {
             name: client.fields.Name,
+            email: client.fields.Email,
             address: order.fields['Delivery Address'] || client.fields.Address,
             type: client.fields['Client Type']
           },

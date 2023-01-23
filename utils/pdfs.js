@@ -117,6 +117,7 @@ const displayOrderMetadata = (order) => {
             let value = 'n\\a'
             
             if (order.contactName) value = order.contactName
+            if (order.client.email) value += `$\n${order.client.email}`
             if (order.phoneNumber) value += `$\n${order.phoneNumber}`
 
             return value
