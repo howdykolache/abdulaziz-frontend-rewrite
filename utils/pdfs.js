@@ -113,7 +113,14 @@ const displayOrderMetadata = (order) => {
         {
           widthInPercentage: 0.3,
           label: 'Contact Person:',
-          value: `${order.contactName}\n${order.phoneNumber}`,
+          value: () => {
+            let value = 'n\\a'
+            
+            if (order.contactName) value = order.contactName
+            if (order.phoneNumber) value += `$\n${order.phoneNumber}`
+
+            return value
+          },
           stringWidth: 100,
         },
         {
