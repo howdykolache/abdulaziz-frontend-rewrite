@@ -180,7 +180,7 @@ const displayOrderMetadata = (order) => {
       currentX += colWidth
     });
     
-    currentLineY += 15
+    currentLineY += 18
   }
 }
 
