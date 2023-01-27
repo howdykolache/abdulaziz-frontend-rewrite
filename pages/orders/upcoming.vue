@@ -4,7 +4,10 @@
     <div v-if="!loading && !error" class="mt-16">
       <div>
         <ClientTypeFilter :options="clientTypes" @change="onClientTypesFilterChange" />
-        <DateRangeFilter v-model="dateRange" @change="load" class="mt-20"/>
+        <div class="flex items-center gap-x-5 mt-20">
+          <DateRangeFilter v-model="dateRange" @change="load" />
+          <ClientFilter/>
+        </div>
       </div>
       <div>
         <div v-if="Object.keys(upcomingOrderDates).length">
@@ -42,6 +45,7 @@ import airQuery from '@/utils/airtable-query-builder'
 import ClientTypeFilter from '@/components/filters/ClientTypeFilter'
 import UpcomingOrder from '@/components/upcoming-orders/UpcomingOrder'
 import DateRangeFilter from '@/components/upcoming-orders/DateRangeFilter'
+import ClientFilter from '@/components/upcoming-orders/ClientFilter'
 import authGuardMixin from '@/mixins/auth-guard'
 import { AIRTABLE_ENTITITY_FIELDS } from '@/utils'
 
@@ -49,7 +53,8 @@ export default {
   components: {
     ClientTypeFilter,
     UpcomingOrder,
-    DateRangeFilter
+    DateRangeFilter,
+    ClientFilter
   },
   layout: 'dashboard',
   mixins: [authGuardMixin],

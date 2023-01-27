@@ -4,6 +4,9 @@ export default {
   selectedClientTypes (state) {
     return state.selectedClientTypes
   },
+  selectedClientId (state) {
+    return state.selectedClientId
+  },
   upcomingOrderDates (state, getters, rootState, rootGetters) {
     const orders = rootGetters['entities/orders/orders']
     const orderItems = rootGetters['entities/order-items/orderItems']
@@ -25,6 +28,10 @@ export default {
         if (getters.selectedClientTypes.length && !getters.selectedClientTypes.includes(clientType)) {
           continue
         }
+      }
+
+      if(getters.selectedClientId && !client || getters.selectedClientId && getters.selectedClientId !== client.id) {
+        continue
       }
 
       if (!order.fields['Summed Orders']) {
