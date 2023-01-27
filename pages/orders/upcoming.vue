@@ -4,7 +4,7 @@
     <div v-if="!loading && !error" class="mt-16">
       <div>
         <ClientTypeFilter :options="clientTypes" @change="onClientTypesFilterChange" />
-        <div class="flex items-center gap-x-5 mt-20">
+        <div class="flex flex-col gap-5 mt-20 md:items-center md:flex-row">
           <DateRangeFilter v-model="dateRange" @change="load" />
           <ClientFilter/>
         </div>
