@@ -17,15 +17,24 @@
         </template>
       </date-range-picker>
     </div>
+    <DateRangePickerConvenienceButtons 
+      @select="onDateRangeConvenienceButtonClick"
+      :start-date="dateRange.startDate"
+      :end-date="dateRange.endDate"
+    />
   </div>
 </template>
 
 <script>
 import DateRangePicker from 'vue2-daterange-picker'
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
+import DateRangePickerConvenienceButtons from './DateRangePickerConvenienceButtons.vue'
 
 export default {
-  components: { DateRangePicker },
+  components: { 
+    DateRangePicker,
+    DateRangePickerConvenienceButtons
+  },
   props: ['value'],
   data () {
     return {
@@ -39,12 +48,23 @@ export default {
     onChange (e) {
       this.$emit('input', this.dateRange)
       this.$emit('change')
+    },
+    onDateRangeConvenienceButtonClick(range) {
+      this.dateRange.startDate = range.start
+      this.dateRange.endDate = range.end
+
+      this.onChange()
     }
   }
 }
 </script>
 
 <style scoped>
+.date-range-wrapper {
+  position: relative;
+  min-width: 317px;
+}
+
 .date-range-wrapper >>> .daterangepicker td.active,
 .date-range-wrapper >>> .daterangepicker td.active:hover,
 .date-range-wrapper >>> .daterangepicker .btn-primary,

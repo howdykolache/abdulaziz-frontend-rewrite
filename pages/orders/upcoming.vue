@@ -44,7 +44,7 @@ import airQuery from '@/utils/airtable-query-builder'
 // import { TEST_CLIENT_IDS } from '@/utils'
 import ClientTypeFilter from '@/components/filters/ClientTypeFilter'
 import UpcomingOrder from '@/components/upcoming-orders/UpcomingOrder'
-import DateRangeFilter from '@/components/upcoming-orders/DateRangeFilter'
+import DateRangeFilter from '@/components/upcoming-orders/date-range/DateRangeFilter.vue'
 import ClientFilter from '@/components/upcoming-orders/ClientFilter'
 import authGuardMixin from '@/mixins/auth-guard'
 import { AIRTABLE_ENTITITY_FIELDS } from '@/utils'
@@ -71,7 +71,7 @@ export default {
       ],
       dateRange: {
         startDate: this.$moment().toDate(),
-        endDate: this.$moment().add('days', 28).toDate()
+        endDate: this.$moment().add('days', 30).toDate()
       },
       loading: true,
       error: false
