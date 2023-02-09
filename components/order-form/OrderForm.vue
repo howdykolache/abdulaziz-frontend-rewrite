@@ -117,8 +117,14 @@ export default {
     emailSubjectTemplate () {
       const date = this.$moment(this.fields.deliveryDate.date, 'YYYY-MM-DD').format('ddd MM/DD')
       const time = this.$moment(this.fields.deliveryDate.deliveryTime, 'hh:mm a').format('h:mm a')
+      
+      let includedItems = `${this.selectedKolacheItemsCount} kolaches`
 
-      return `[{PLACEHOLDER}] ${date} @ ${time}, ${this.totalSelectedProducts} kolaches, ${this.client.fields.Name}`
+      if(this.selectedNonKolacheItemsCount) {
+        includedItems += `/${this.selectedNonKolacheItemsCount} other`
+      }
+
+      return `[{PLACEHOLDER}] ${date} @ ${time}, ${includedItems}, ${this.client.fields.Name}`
     },
     emailBodyTemplate () {
       const date = this.$moment(this.fields.deliveryDate.date, 'YYYY-MM-DD').format('ddd MM/DD')
@@ -129,7 +135,8 @@ export default {
         {PLACEHOLDER} for ${this.client.fields.Name}:
         <br>
         - ${date} @ ${time}<br>
-        - Total kolaches: ${this.totalSelectedProducts}
+        - Total kolaches: ${this.selectedKolacheItemsCount}<br>
+        - Total other: ${this.selectedNonKolacheItemsCount}
         <br>
         <br>
         <a href="${link}">Click for full order details.</a>
