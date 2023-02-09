@@ -59,6 +59,17 @@ export default {
         }
 
         return total
+      }, 0)      
+      // The the number of non kolache items
+      const totalNonKolacheItems = orderItems.reduce((total, orderItem) => {
+        const product = products.find(item => item.id === orderItem.fields.Product[0])
+        const itemType = product.fields['Product Type'].toLowerCase().trim()
+
+        if (orderItem.fields.Order[0] === order.id && !itemType.toLowerCase().includes('kolache')) {
+          return total + orderItem.fields.Orders
+        }
+
+        return total
       }, 0)
 
       const obj = {
@@ -67,6 +78,7 @@ export default {
         deliveryTime,
         qty: order.fields['Summed Orders'],
         totalKolacheItems,
+        totalNonKolacheItems,
         packaging: order.fields.Packaging,
         temperature: order.fields.Temperature,
         notes: order.fields.Notes,

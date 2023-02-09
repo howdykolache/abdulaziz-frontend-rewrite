@@ -14,7 +14,10 @@
         </div>
         <div class="cell qty">
           <div class="title">#</div>
-          <div class="value">{{ order.qty }}</div>
+          <div class="value">
+            <span title="Kolaches">{{ order.totalKolacheItems }}</span>
+            <span v-if="order.totalNonKolacheItems" title="Other">, {{ order.totalNonKolacheItems }}</span>
+          </div>
         </div>
         <div class="cell delivery">
           <div class="title">Delivery</div>
