@@ -4,7 +4,7 @@
     <select
       v-model="selectedClient"
       @change="onChange"
-      class="border border-gray-300 px-3 py-1 ml-3"
+      class="border border-gray-300 px-3 py-1 ml-3 md:w-56"
     >
       <option :value="null">All</option>
       <option
