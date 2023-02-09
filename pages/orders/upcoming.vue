@@ -9,7 +9,7 @@
           <ClientFilter/>
         </div>
       </div>
-      <div>
+      <div class="mt-16">
         <div v-if="Object.keys(upcomingOrderDates).length">
           <div v-for="(orders, date) in upcomingOrderDates" :key="date" class="days">
             <div class="day">
