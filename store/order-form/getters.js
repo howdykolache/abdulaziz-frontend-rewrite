@@ -68,5 +68,35 @@ export default {
     }
 
     return total
+  },
+  selectedKolacheItemsCount (state, getters, rootState, rootGetters) {
+    const products = rootGetters['entities/products/products']
+
+    let total = 0
+    for (const prodId in state.fields.quantities) {
+      const product = products.find(prod => prod.id === prodId)
+      const productType = product.fields['Product Type'].trim()
+      
+      if(!productType.toLowerCase().includes('kolache')) continue
+
+      total += state.fields.quantities[prodId]
+    }
+
+    return total
+  },
+  selectedNonKolacheItemsCount (state, getters, rootState, rootGetters) {
+    const products = rootGetters['entities/products/products']
+
+    let total = 0
+    for (const prodId in state.fields.quantities) {
+      const product = products.find(prod => prod.id === prodId)
+      const productType = product.fields['Product Type'].trim()
+      
+      if(productType.toLowerCase().includes('kolache')) continue
+
+      total += state.fields.quantities[prodId]
+    }
+
+    return total
   }
 }

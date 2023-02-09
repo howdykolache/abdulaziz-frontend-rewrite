@@ -26,7 +26,12 @@
           <Products class="mt-6" />
         </section>
         <section class="actions-wrapper">
-          <h4 class="total-items"><strong>{{ totalSelectedProducts }}</strong> KOLACHES SELECTED</h4>
+          <h4 class="total-items">
+            <strong>{{ selectedKolacheItemsCount }}</strong> KOLACHES
+            <span v-if="selectedNonKolacheItemsCount">
+              & <strong>{{ selectedNonKolacheItemsCount }}</strong> OTHER
+            </span> SELECTED
+          </h4>
           <div class="flex md:flex-col items-center md:mt-6">
             <div class="flex items-center order-1 md:order-2 md:mt-4">
               <button v-if="orderId" @click="openDeletionModal" class="btn btn__secondary !text-red-500 mr-4 md:mr-2">
@@ -102,6 +107,8 @@ export default {
       fields: 'order-form/fields',
       orderCreationPayload: 'order-form/orderCreationPayload',
       totalSelectedProducts: 'order-form/totalSelectedProducts',
+      selectedKolacheItemsCount: 'order-form/selectedKolacheItemsCount',
+      selectedNonKolacheItemsCount: 'order-form/selectedNonKolacheItemsCount',
       clients: 'entities/clients/clients'
     }),
     client () {
