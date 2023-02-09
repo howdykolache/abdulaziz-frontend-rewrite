@@ -63,6 +63,7 @@ export default {
 .date-range-wrapper {
   position: relative;
   min-width: 317px;
+  @apply md:flex justify-between lg:block;
 }
 
 .date-range-wrapper >>> .daterangepicker td.active,

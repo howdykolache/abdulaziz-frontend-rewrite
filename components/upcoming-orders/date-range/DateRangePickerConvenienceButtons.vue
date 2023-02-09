@@ -72,12 +72,12 @@ export default {
 
 <style scoped>
 .convenience-buttons {
-  @apply absolute flex flex-wrap gap-1;
+  @apply mt-2 flex flex-wrap gap-1 md:m-0 lg:absolute;
   top: 44px;
 }
 
 .convenience-buttons .button {
-  @apply p-1 px-2 rounded-md text-xs cursor-pointer;
+  @apply p-1 px-2 rounded-md text-xs cursor-pointer flex justify-center items-center;
   font-size: 11px;
 }
 
