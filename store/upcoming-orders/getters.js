@@ -131,5 +131,38 @@ export default {
     }
 
     return dates
+  },
+  aggregatedOrdersCount (state, getters) {
+    const upcomingOrderDates = getters.upcomingOrderDates
+
+    let total = 0
+    for (const date in upcomingOrderDates) {
+      const dayOrders = upcomingOrderDates[date];
+      total += dayOrders.length
+    }
+
+    return total
+  },
+  aggregatedKolachesItemsCount (state, getters) {
+    const upcomingOrderDates = getters.upcomingOrderDates
+
+    let total = 0
+    for (const date in upcomingOrderDates) {
+      const dayOrders = upcomingOrderDates[date];
+      total += dayOrders.reduce((total, o) => total + o.totalKolacheItems, 0)
+    }
+
+    return total
+  },
+  aggregatedNonKolachesItemsCount (state, getters) {
+    const upcomingOrderDates = getters.upcomingOrderDates
+
+    let total = 0
+    for (const date in upcomingOrderDates) {
+      const dayOrders = upcomingOrderDates[date];
+      total += dayOrders.reduce((total, o) => total + o.totalNonKolacheItems, 0)
+    }
+
+    return total
   }
 }

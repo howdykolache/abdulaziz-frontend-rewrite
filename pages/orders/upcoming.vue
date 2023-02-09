@@ -7,6 +7,9 @@
         <div class="flex flex-col gap-5 mt-20 md:items-center md:flex-row">
           <DateRangeFilter v-model="dateRange" @change="load" />
           <ClientFilter/>
+          <div class="flex-1 text-base text-left md:text-right">
+            {{ `${aggregatedOrdersCount} Orders (${aggregatedKolachesItemsCount} kolaches, ${aggregatedNonKolachesItemsCount} other)` }}
+          </div>
         </div>
       </div>
       <div class="mt-16">
@@ -82,6 +85,9 @@ export default {
   computed: {
     ...mapGetters({
       upcomingOrderDates: 'upcoming-orders/upcomingOrderDates',
+      aggregatedOrdersCount: 'upcoming-orders/aggregatedOrdersCount',
+      aggregatedKolachesItemsCount: 'upcoming-orders/aggregatedKolachesItemsCount',
+      aggregatedNonKolachesItemsCount: 'upcoming-orders/aggregatedNonKolachesItemsCount',
       orders: 'entities/orders/orders'
     })
   },
