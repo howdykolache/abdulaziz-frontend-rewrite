@@ -31,7 +31,8 @@ export default {
   computed: {
     ...mapGetters({
       fields: 'order-form/fields',
-      totalSelectedProducts: 'order-form/totalSelectedProducts',
+      selectedKolacheItemsCount: 'order-form/selectedKolacheItemsCount',
+      selectedNonKolacheItemsCount: 'order-form/selectedNonKolacheItemsCount',
       clients: 'entities/clients/clients'
     }),
     client () {
@@ -74,13 +75,20 @@ export default {
       const date = this.$moment(this.fields.deliveryDate.date, 'YYYY-MM-DD').format('ddd MM/DD')
       const time = this.$moment(this.fields.deliveryDate.deliveryTime, 'hh:mm a').format('h:mm a')
 
-      const subject = `[Order Deleted] ${date} @ ${time}, ${this.totalSelectedProducts} kolaches, ${this.client.fields.Name}`
+      let includedItems = `${this.selectedKolacheItemsCount} kolaches`
+
+      if(this.selectedNonKolacheItemsCount) {
+        includedItems += `/${this.selectedNonKolacheItemsCount} other`
+      }
+
+      const subject = `[Order Deleted] ${date} @ ${time}, ${includedItems}, ${this.client.fields.Name}`
 
       const body =  `
         An order for ${this.client.fields.Name} has been deleted:
         <br>
         - ${date} @ ${time}<br>
-        - Total kolaches: ${this.totalSelectedProducts}
+        - Total kolaches: ${this.selectedKolacheItemsCount}<br>
+        - Total other: ${this.selectedNonKolacheItemsCount}
       `
 
       return {
