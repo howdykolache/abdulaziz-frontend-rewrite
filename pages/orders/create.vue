@@ -37,7 +37,7 @@ export default {
     try {
       await this.getClients({
         filterByFormula: airQuery().where('Active', 1).get(),
-        fields: ['Name', 'Primary Contact', 'Address', 'Rec ID']
+        fields: ['Name', 'Primary Contact', 'Address', 'Rec ID', 'Phone']
       })
       await this.getProducts({
         filterByFormula: airQuery()
