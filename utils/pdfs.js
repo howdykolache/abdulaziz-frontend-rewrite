@@ -16,12 +16,10 @@ export const generateOrderPdf = (orders) => {
   for (let index = 0; index < orders.length; index++) {
     const order = orders[index]
     const data = []
-    const formattedOrderDate = moment(order.date, 'YYYY-MM-DD').format('MM/DD')
-    const clientType = order.client.type.replace(/^[0-9]\./, '').trim()
 
     currentLineY = 10
 
-    addHeading(`${order.client.name} - ${formattedOrderDate} - ${clientType}`)
+    addHeading(order)
     addLine()
     displayOrderMetadata(order)
 
@@ -190,11 +188,22 @@ const addText = (text, fontStyle = 'normal', x = 20, y = 20) => {
   doc.text(text, x, y)
 }
 
-const addHeading = (text) => {
+const addHeading = (order) => {
+  const formattedOrderDate = moment(order.date, 'YYYY-MM-DD').format('MM/DD')
+  const clientType = order.client.type.replace(/^[0-9]\./, '').trim()
+  const leftSide = `${order.client.name} - ${formattedOrderDate} - ${clientType}`
+
   currentLineBottomMargin = 7
+
   doc.setFontSize(14)
   doc.setFont('helvetica', 'bold')
-  doc.text(text, 20, currentLineY)
+
+  doc.text(leftSide, 20, currentLineY)
+
+  // If there's a "client details" available, put it on the right side
+  if (order.clientDetails) {
+    doc.text(order.clientDetails, width - 20, currentLineY, { align: 'right', })
+  }
 }
 
 const addLine = (y) => {

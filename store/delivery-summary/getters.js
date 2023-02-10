@@ -98,6 +98,7 @@ export default {
           deliveryTime: order.fields['Delivery Time'],
           notes: order.fields.Notes,
           deliveryNotes: order.fields['Delivery Notes'],
+          clientDetails: order.fields['Client Details'],
         }
 
         data.push(entry)
