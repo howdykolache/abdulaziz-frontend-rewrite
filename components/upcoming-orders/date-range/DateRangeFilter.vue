@@ -62,7 +62,7 @@ export default {
 <style scoped>
 .date-range-wrapper {
   position: relative;
-  min-width: 317px;
+  min-width: 380px;
   @apply md:flex justify-between lg:block;
 }
 
