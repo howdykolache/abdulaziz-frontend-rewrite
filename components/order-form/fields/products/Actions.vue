@@ -5,32 +5,24 @@
     </button>
     <div class="dropdown ml-4 md:ml-0">
       <button @click="toggleDropdown" class="toggle-dropdown-btn underline">
-        Quick entry
+        Quick Entry
       </button>
       <div :class="{'open': openDropDown}"  class="options">
-        <button @click="addOneBreakfast" class="btn btn__secondary">
-          <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 breakfast sample box</span>
-        </button>
-        <button @click="addOneAllDaySample" class="btn btn__secondary">
-          <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 all day sample box</span>
-        </button>
         <button @click="addHowdyMix" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 howdy Mix (12)</span>
+          <span>1 Howdy Mix (12)</span>
         </button>
         <button @click="addVegMix" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 veg Mix (12)</span>
+          <span>1 Veg Mix (12)</span>
         </button>
         <button @click="addSweetAndSavory" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 sweet and savory</span>
+          <span>1 Sweet &amp; Savory (12)</span>
         </button>
-        <button @click="addOneDozenAllDay" class="btn btn__secondary">
+        <button @click="addOneBreakfast" class="btn btn__secondary">
           <font-awesome-icon :icon="['fas', 'plus']" class="text-xs"/>
-          <span>1 all day dozen</span>
+          <span>1 Breakfast Sample Box (4)</span>
         </button>
         <button @click="toggleDropdown" class="btn btn__secondary md:!hidden !text-red-500 !mt-0">
           <span>Close</span>
