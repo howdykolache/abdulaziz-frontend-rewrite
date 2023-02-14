@@ -99,7 +99,8 @@ export default {
   data () {
     return {
       submitting: false,
-      createdOrderId: null
+      createdOrderId: null,
+      currentCommittedChanges: null
     }
   },
   computed: {
@@ -141,6 +142,25 @@ export default {
         <br>
         <a href="${link}">Click for full order details.</a>
       `
+    },
+    // We only need to send order update email notification if the date, time or quantity changes 
+    shouldSendOrderUpdateEmail(){
+      if(
+        this.fields.deliveryDate.date !== this.currentCommittedChanges.deliveryDate.date ||
+        this.fields.deliveryDate.deliveryTime !== this.currentCommittedChanges.deliveryDate.deliveryTime
+      ) return true
+
+      for (const key in this.fields.quantities) {
+        let newValue = this.fields.quantities[key]
+        let currentValue = this.currentCommittedChanges.quantities[key]
+
+        if(newValue === undefined) newValue = 0
+        if(currentValue === undefined) currentValue = 0
+
+        if(newValue !== currentValue) return true
+      }
+
+      return false
     }
   },
   methods: {
@@ -189,15 +209,19 @@ export default {
           type: 'success'
         })
 
-        const subject = this.emailSubjectTemplate.replace('{PLACEHOLDER}', 'Order MODIFIED')
-        const body = this.emailBodyTemplate.replace('{PLACEHOLDER}', 'Order UPDATED')
-        sendEmail(subject, body)
+        if (this.shouldSendOrderUpdateEmail) {
+          const subject = this.emailSubjectTemplate.replace('{PLACEHOLDER}', 'Order MODIFIED')
+          const body = this.emailBodyTemplate.replace('{PLACEHOLDER}', 'Order UPDATED')
+          sendEmail(subject, body)
+        }
       } else {
         this.$notify({
           text: 'Could not save changes',
           type: 'error'
         })
       }
+
+      this.currentCommittedChanges = this.fields
     },
     validate () {
       if (!this.fields.client || !this.fields.client.id) {
@@ -255,6 +279,9 @@ export default {
         name: 'delete-order'
       })
     },
+  },
+  created(){
+    this.currentCommittedChanges = this.fields
   }
 }
 </script>
