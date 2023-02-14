@@ -89,8 +89,7 @@ export default {
         [PRODUCT_IDS.elGreco]: 3,
         [PRODUCT_IDS.theSchmear]: 2,
         [PRODUCT_IDS.kream]: 2,
-        [PRODUCT_IDS.ronSwanson]: 1,
-        [PRODUCT_IDS.desayuno]: 1
+        [PRODUCT_IDS.ronSwanson]: 2
       })
     },
     addVegMix  () {
