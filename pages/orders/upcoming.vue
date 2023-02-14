@@ -111,7 +111,7 @@ export default {
           filterByFormula: airQuery()
             // .notIn('Client Rec ID', TEST_CLIENT_IDS)
             .after('Date', this.$moment(this.dateRange.startDate).subtract('days', 1).format('MM/DD/YYYY')) // inclusive
-            .before('Date', this.$moment(this.dateRange.endDate).add('days', 1).format('MM/DD/YYYY')) // inclusive
+            .before('Date', this.$moment(this.dateRange.endDate).format('MM/DD/YYYY'))
             .get(),
           sort: [{ field: 'Date', direction: 'asc' }],
           fields: AIRTABLE_ENTITITY_FIELDS.ORDER
