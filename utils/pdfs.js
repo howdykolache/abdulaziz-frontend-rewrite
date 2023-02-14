@@ -201,7 +201,7 @@ const addHeading = (order) => {
   doc.text(leftSide, 20, currentLineY)
 
   // If there's a "client details" available, put it on the right side
-  if (order.clientDetails) {
+  if (order.clientDetails && order.clientDetails.toLowerCase() !== 'n/a') {
     doc.text(order.clientDetails, width - 20, currentLineY, { align: 'right', })
   }
 }
