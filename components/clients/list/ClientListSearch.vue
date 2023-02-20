@@ -2,18 +2,11 @@
   <div class="ml-8 flex-1 pr-8 flex">
     <input
       v-model="query"
+      @input="onInput"
       type="text"
       class="input"
       placeholder="Search by company name, contact nameor email"
     />
-    <button 
-      @click="search"
-      :disabled="disableBtn"
-      :class="{'opacity-40': disableBtn}"
-      class="btn btn-primary"
-    >
-    <img class="w-6 h-6" src="~/assets/icons/search.svg" >
-    </button>
   </div>
 </template>
 
@@ -38,7 +31,7 @@ export default {
     ...mapActions({
       setSearchTerm: 'client-list-page/setSearchTerm'
     }),
-    search() {
+    onInput() {
       this.setSearchTerm(this.query)
     }
   }
