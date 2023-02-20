@@ -30,7 +30,7 @@ export const AIRTABLE_ENTITITY_FIELDS = {
     'Delivery Address',
     'Order Phone',
     'Order Contact',
-    'Client'
+    'Client Rec ID'
   ]
 }
 
