@@ -34,7 +34,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      clientList: 'client-list-page/clientList'
+      clientList: 'client-list-page/filteredClientList'
     })
   },
   methods: {

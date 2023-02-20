@@ -14,9 +14,7 @@ export default {
     return state.searchTerm
   },
   clientList(state, getters, rootState, rootGetters) {
-    const sortBy = getters['sortBy']
     const orders = getters['orders']
-    const searchTerm = getters['searchTerm']
     const orderItems = getters['orderItems']
     const products = rootGetters['entities/products/products']
     const clients = rootGetters['entities/clients/clients']
@@ -78,11 +76,17 @@ export default {
         entries.splice(entryIndex, 1, entry)
     }
 
-    // Filter & sort
-    if (sortBy === 'most-orders') entries.sort((a, b) => b.orders.length - a.orders.length )
+    return entries
+  },
+  filteredClientList(state, getters){
+    let clientList = [...getters.clientList]
+    const sortBy = getters['sortBy']
+    const searchTerm = getters['searchTerm']
+
+    if (sortBy === 'most-orders') clientList.sort((a, b) => b.orders.length - a.orders.length )
     
     if (sortBy === 'most-recent-order') {
-      entries.sort((clientA, clientB) => {
+      clientList.sort((clientA, clientB) => {
         if (!clientA || !clientA.orders.length) return 1
         if (!clientB || !clientB.orders.length) return -1
 
@@ -98,13 +102,13 @@ export default {
     }
 
     if (searchTerm.trim().length) {
-      entries = entries.filter(entry => {
+      clientList = clientList.filter(entry => {
         return entry.name.toLowerCase().includes(searchTerm) ||
         (entry.primaryContactName && entry.primaryContactName.toLowerCase().includes(searchTerm)) ||
         (entry.email && entry.email.toLowerCase().includes(searchTerm))
       })
     }
 
-    return entries
+    return clientList
   }
 }
