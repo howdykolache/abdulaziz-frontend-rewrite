@@ -14,6 +14,11 @@ export default () => {
     where (column, value) {
       filters.push(`{${column}}="${value}"`)
       return this
+    },   
+    whereInArrayColumn (column, values) {
+      const str = values.map(v => `{${column}}="${v}"`)
+      filters.push(`OR(${str})`)
+      return this
     },    
     whereDate (column, value) {
       filters.push(`DATESTR({${column}})="${value}"`)
