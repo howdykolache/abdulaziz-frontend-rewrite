@@ -128,6 +128,14 @@ export default {
         links.push(link)
       }
 
+      // Additional internal links
+      links.push({
+        name: 'View Clients',
+        section: 'Admin Links',
+        url: '/clients',
+        external: false
+      })
+
       return links
     },
     groupedLinks () {
