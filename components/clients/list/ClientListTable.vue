@@ -13,7 +13,7 @@
     <tbody>
       <tr v-for="client in clientList" :key="client.id">
         <td>
-          {{ client.name }}
+          <a :href="`/clients/${client.id}`" target="_blank">{{ client.name }}</a>
         </td>
         <td class="text-center">{{ formatDate(client.lastOrderDate) }}</td>
         <td class="text-center">{{ formatDate(client.firstOrderDate) }}</td>
