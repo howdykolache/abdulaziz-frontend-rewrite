@@ -3,13 +3,7 @@
     <portal to="page-title">Clients</portal>
     <div class="flex justify-between items-center">
       <ClientListSort />
-      <div class="ml-8 flex-1">
-        <input
-          type="text"
-          class="input"
-          placeholder="Search by company name, contact nameor email"
-        />
-      </div>
+      <ClientListSearch />
     </div>
     <div v-if="!loadingInitialData">
       <ClientListTable />
@@ -26,11 +20,13 @@ import { AIRTABLE_ENTITITY_FIELDS } from '@/utils'
 import airQuery from '@/utils/airtable-query-builder'
 import ClientListTable from '@/components/clients/list/ClientListTable.vue'
 import ClientListSort from '@/components/clients/list/ClientListSort.vue'
+import ClientListSearch from '@/components/clients/list/ClientListSearch.vue'
 
 export default {
   components: {
     ClientListTable,
-    ClientListSort
+    ClientListSort,
+    ClientListSearch
   },
   layout: 'dashboard',
   data() {
@@ -63,7 +59,7 @@ export default {
 
     await this.getClients({
       filterByFormula: airQuery().where('Active', 1).get(),
-      fields: ['Name', 'Primary Contact'],
+      fields: ['Name', 'Primary Contact', 'Email'],
     })
 
     await this.fetchClientOrders(this.clients.map((c) => c.id))

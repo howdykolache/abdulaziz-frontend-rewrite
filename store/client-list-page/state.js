@@ -1,5 +1,6 @@
 export default () => ({
     orders: [],
     orderItems: [],
-    sortBy: 'most-recent-order'
+    sortBy: 'most-recent-order',
+    searchTerm: ''
 })

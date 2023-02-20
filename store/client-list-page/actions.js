@@ -6,6 +6,9 @@ export default {
   setSortBy({ commit }, value) {
     commit('SET_SORT_BY', value)
   },
+  setSearchTerm({ commit }, value) {
+    commit('SET_SEARCH_TERM', value)
+  },
   async fetchClientOrders({ commit }, clientIds) {
     let records = []
 

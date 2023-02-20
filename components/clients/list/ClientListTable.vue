@@ -1,5 +1,6 @@
 <template>
-  <table class="mt-8 table table--edgeless w-full">
+ <div>
+    <table v-if="clientList.length" class="mt-8 table table--edgeless w-full">
     <thead>
       <tr>
         <th class="w-4/12">Client</th>
@@ -20,7 +21,11 @@
         <td class="text-center">{{ client.totalKolaches }}</td>
       </tr>
     </tbody>
-  </table>
+    </table>
+    <div v-else class=" mt-48 flex justify-center items-center">
+        <p>No matching results</p>
+    </div>
+ </div>
 </template>
 
 <script>

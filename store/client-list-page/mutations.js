@@ -7,5 +7,8 @@ export default {
   },
   SET_SORT_BY(state, value) {
     state.sortBy = value
+  },
+  SET_SEARCH_TERM(state, value) {
+    state.searchTerm = value
   }
 }

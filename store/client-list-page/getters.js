@@ -10,15 +10,19 @@ export default {
   sortBy(state){
     return state.sortBy
   },
+  searchTerm(state){
+    return state.searchTerm
+  },
   clientList(state, getters, rootState, rootGetters) {
     const sortBy = getters['sortBy']
     const orders = getters['orders']
+    const searchTerm = getters['searchTerm']
     const orderItems = getters['orderItems']
     const products = rootGetters['entities/products/products']
     const clients = rootGetters['entities/clients/clients']
 
     // Initialize entries 
-    const entries = clients.map(client => {
+    let entries = clients.map(client => {
         const clientOrders = orders.filter(o => o.fields['Client Rec ID'][0] === client.id)
         
         // Sort by date desc
@@ -44,6 +48,8 @@ export default {
         return {
             id: client.id,
             name: client.fields.Name,
+            email: client.fields.Email,
+            primaryContactName: client.fields['Primary Contact'],
             orderCount: clientOrders.length,
             orders: clientOrders,
             totalKolaches: 0,
@@ -88,6 +94,14 @@ export default {
         const clientBLastOrderTime = moment(clientBLastOrder.fields.Date, 'YYYY-MM-DD')
 
         return clientBLastOrderTime.unix() - clientALastOrderTime.unix()
+      })
+    }
+
+    if (searchTerm.trim().length) {
+      entries = entries.filter(entry => {
+        return entry.name.toLowerCase().includes(searchTerm) ||
+        (entry.primaryContactName && entry.primaryContactName.toLowerCase().includes(searchTerm)) ||
+        (entry.email && entry.email.toLowerCase().includes(searchTerm))
       })
     }
 
