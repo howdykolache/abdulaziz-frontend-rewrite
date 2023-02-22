@@ -7,10 +7,12 @@
         <div class="flex flex-col gap-5 mt-20 lg:items-center lg:flex-row">
           <DateRangeFilter v-model="dateRange" @change="load" />
           <ClientFilter/>
-          <div class="flex-1 text-base text-left md:text-right">
-            {{ `${aggregatedOrdersCount} Orders (${aggregatedKolachesItemsCount} kolaches, ${aggregatedNonKolachesItemsCount} other)` }}
+          <div class="flex justify-between items-center lg:flex-row">            
+            <div class="flex-1 text-sm text-left md:text-right">
+              {{ `${aggregatedOrdersCount} Orders (${aggregatedKolachesItemsCount} kolaches, ${aggregatedNonKolachesItemsCount} other)` }}
+            </div>
+            <DownloadAsCsv :data="csvData" class="ml-2"/>
           </div>
-          <DownloadAsCsv :data="csvData"/>
         </div>
       </div>
       <div class="mt-16">
