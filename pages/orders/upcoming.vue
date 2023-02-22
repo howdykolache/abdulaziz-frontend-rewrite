@@ -10,6 +10,7 @@
           <div class="flex-1 text-base text-left md:text-right">
             {{ `${aggregatedOrdersCount} Orders (${aggregatedKolachesItemsCount} kolaches, ${aggregatedNonKolachesItemsCount} other)` }}
           </div>
+          <DownloadAsCsv :data="csvData"/>
         </div>
       </div>
       <div class="mt-16">
@@ -51,6 +52,7 @@ import ClientTypeFilter from '@/components/filters/ClientTypeFilter'
 import UpcomingOrder from '@/components/upcoming-orders/UpcomingOrder'
 import DateRangeFilter from '@/components/upcoming-orders/date-range/DateRangeFilter.vue'
 import ClientFilter from '@/components/upcoming-orders/ClientFilter'
+import DownloadAsCsv from '@/components/upcoming-orders/DownloadAsCsv'
 import authGuardMixin from '@/mixins/auth-guard'
 import { AIRTABLE_ENTITITY_FIELDS } from '@/utils'
 
@@ -59,7 +61,8 @@ export default {
     ClientTypeFilter,
     UpcomingOrder,
     DateRangeFilter,
-    ClientFilter
+    ClientFilter,
+    DownloadAsCsv
   },
   layout: 'dashboard',
   mixins: [authGuardMixin],
@@ -88,6 +91,7 @@ export default {
       aggregatedOrdersCount: 'upcoming-orders/aggregatedOrdersCount',
       aggregatedKolachesItemsCount: 'upcoming-orders/aggregatedKolachesItemsCount',
       aggregatedNonKolachesItemsCount: 'upcoming-orders/aggregatedNonKolachesItemsCount',
+      csvData: 'upcoming-orders/csvData',
       orders: 'entities/orders/orders'
     })
   },

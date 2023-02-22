@@ -132,6 +132,36 @@ export default {
 
     return dates
   },
+  csvData(state, getters){
+    const upcomingOrderDates = getters.upcomingOrderDates
+
+    let csvData = []
+
+    for (const date in upcomingOrderDates) {
+      const dayOrders = upcomingOrderDates[date];
+      
+      const rows = dayOrders.map(order => {
+        return {
+          'Date': moment(date, 'YYYY-MM-DD').format('MM/DD'),
+          'Kolaches': order.totalKolacheItems.toString(),
+          'Other': order.totalNonKolacheItems.toString(),
+          'Client': order.clientName,
+          'Client Details': order.clientDetails || '',
+          'Ready Time': order.readyTime || '',
+          'Delivery Time': order.deliveryTime || '',
+          'Delivery Type': order.deliveryType || '',
+          'Delivery By': order.deliveryDriver || '',
+          'Delivery Notes': order.deliveryNotes || '',
+          'Address': order.address || '',
+          'Special Notes': order.notes || '',
+        }
+      })
+
+      csvData = [...csvData, ...rows]
+    }
+
+    return csvData
+  },
   aggregatedOrdersCount (state, getters) {
     const upcomingOrderDates = getters.upcomingOrderDates
 
