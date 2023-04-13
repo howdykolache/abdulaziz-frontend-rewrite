@@ -51,7 +51,7 @@ export default {
       // Compute the number of kolaches included in this order
       const totalKolacheItems = orderItems.reduce((total, orderItem) => {
         const product = products.find(item => item.id === orderItem.fields.Product[0])
-        const kolacheTypes = ['kolache', 'kolache - seasonal or special']
+        const kolacheTypes = ['savory kolache', 'sweet kolache', 'kolache - seasonal or special']
         const itemType = product.fields['Product Type'].toLowerCase().trim()
 
         if (orderItem.fields.Order[0] === order.id && kolacheTypes.includes(itemType)) {
