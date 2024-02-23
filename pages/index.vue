@@ -1,6 +1,6 @@
 <template>
   <div>
-    <portal to="page-title">Howdy Kolache Links</portal>
+    <portal to="page-title">Howdy Buns Links</portal>
     <div class="w-full lg:w-10/12 mx-auto p-2">
       <div v-if="!loading && !error" class="flex flex-col md:flex-row gap-4 justify-center">
         <div class="w-full md:w-7/12">
